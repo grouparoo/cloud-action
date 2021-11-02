@@ -1,0 +1,29 @@
+name: "Grouparoo Cloud"
+description: "Pushes Configuration to Grouparoo Cloud to validate or apply"
+
+inputs:
+  project_id:
+    description: "Grouparoo Cloud Project ID"
+    required: true
+  token:
+    description: "Grouparoo Cloud API Token"
+    required: true
+  type: 
+    description: "Should the action run `ci` or `deploy`?"
+    default: "ci"
+  api_url:
+    description: "Override the base URL for the Grouparoo Cloud API"
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+      - run: npm ci
+        shell: bash
+      - run: npx grouparoo ${{ inputs.type }} -p ${{ inputs.project_id }}
+        shell: bash
+        env: 
+          GROUPAROO_CLOUD_API_URL: ${{ inputs.api_url }}
+          GROUPAROO_CLOUD_API_TOKEN: ${{ inputs.token }}
+          DATABASE_URL: sqlite://memory
+          REDIS_URL: redis://mock
