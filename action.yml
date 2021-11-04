@@ -24,7 +24,7 @@ runs:
         run: |
           if   [[ '${{ github.event_name }}' == 'push' ]]; then
             echo "COMMIT_SUBJECT=$(git log --format=%s -n 1 ${{ github.sha }})" >> $GITHUB_ENV
-            echo "CONFIG_URL=${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}" >> $GITHUB_ENV
+            echo "CONFIG_URL=${{ github.event.push.head_commit.url }}" >> $GITHUB_ENV
           elif [[ '${{ github.event_name }}' == 'pull_request' ]]; then
             echo "CONFIG_URL=${{ github.event.pull_request.html_url }}" >> $GITHUB_ENV
           fi
