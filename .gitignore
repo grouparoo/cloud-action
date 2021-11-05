@@ -1,0 +1,5 @@
+node_modules
+.DS_Store
+grouparoo_development.sqlite
+.local
+.env
