@@ -20,10 +20,19 @@ runs:
   steps:
       - run: npm ci
         shell: bash
-      - run: npx grouparoo ${{ inputs.type }} -p ${{ inputs.project_id }}
+      - shell: bash
+        run: |
+          if   [[ '${{ github.event_name }}' == 'push' ]]; then
+            echo "COMMIT_SUBJECT=$(git log --format=%s -n 1 ${{ github.sha }})" >> $GITHUB_ENV
+            echo "CONFIG_URL=${{ github.event.push.head_commit.url }}" >> $GITHUB_ENV
+          elif [[ '${{ github.event_name }}' == 'pull_request' ]]; then
+            echo "CONFIG_URL=${{ github.event.pull_request.html_url }}" >> $GITHUB_ENV
+          fi
+      - run: npx grouparoo ${{ inputs.type }} -p ${{ inputs.project_id }} -m $CONFIG_MESSAGE -u $CONFIG_URL
         shell: bash
         env: 
           GROUPAROO_CLOUD_API_URL: ${{ inputs.api_url }}
           GROUPAROO_CLOUD_API_TOKEN: ${{ inputs.token }}
+          CONFIG_MESSAGE: ${{ env.COMMIT_SUBJECT || github.event.pull_request.title }}
           DATABASE_URL: sqlite://memory
           REDIS_URL: redis://mock
