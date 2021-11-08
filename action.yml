@@ -28,7 +28,7 @@ runs:
           elif [[ '${{ github.event_name }}' == 'pull_request' ]]; then
             echo "CONFIG_URL=${{ github.event.pull_request.html_url }}" >> $GITHUB_ENV
           fi
-      - run: npx grouparoo ${{ inputs.type }} -p ${{ inputs.project_id }} -m $CONFIG_MESSAGE -u $CONFIG_URL
+      - run: npx grouparoo ${{ inputs.type }} -p ${{ inputs.project_id }} -m "$CONFIG_MESSAGE" -u $CONFIG_URL
         shell: bash
         env: 
           GROUPAROO_CLOUD_API_URL: ${{ inputs.api_url }}
