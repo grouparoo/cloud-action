@@ -13,6 +13,7 @@ inputs:
     default: "ci"
   api_url:
     description: "Override the base URL for the Grouparoo Cloud API"
+    default: "https://cloud.grouparoo.com"
     required: false
 
 runs:
