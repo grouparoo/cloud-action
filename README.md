@@ -41,7 +41,7 @@ It will also send some additional metadata along with the Configuration to allow
   - Pull Request URL
   - Pull Request Title
 - Pushes:
-  - Commit message
+  - Commit subject
   - Commit URL
 
 #### Repository structure
