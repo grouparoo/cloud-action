@@ -1,6 +1,10 @@
 name: "Grouparoo Cloud"
 description: "Pushes Configuration to Grouparoo Cloud to validate or apply"
 
+branding:
+  icon: 'upload-cloud'
+  color: 'blue'
+
 inputs:
   project_id:
     description: "Grouparoo Cloud Project ID"
